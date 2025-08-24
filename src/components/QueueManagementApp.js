@@ -17,11 +17,57 @@ const QueueManagementApp = () => {
   const [activeView, setActiveView] = useState("queues");
   const [newQueueName, setNewQueueName] = useState("");
   const [newPersonName, setNewPersonName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Check authentication status on app load
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      const token = localStorage.getItem("token");
+      const userData = localStorage.getItem("user");
+      
+      if (token && userData) {
+        try {
+          // Validate token with backend
+          const res = await fetch(`${API_BASE}/auth/verify`, {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json"
+            }
+          });
+          
+          if (res.ok) {
+            const user = JSON.parse(userData);
+            setUser(user);
+            setIsLoggedIn(true);
+            await loadQueues();
+          } else {
+            // Token is invalid, clear storage
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+          }
+        } catch (err) {
+          console.error("Auth check failed:", err);
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+        }
+      }
+      setIsLoading(false);
+    };
+
+    checkAuthStatus();
+  }, []);
 
   // --- Load all queues ---
   const loadQueues = async () => {
     try {
-      const res = await fetch(`${API_BASE}/queues`);
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_BASE}/queues`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
       const data = await res.json();
       setQueues(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -33,9 +79,13 @@ const QueueManagementApp = () => {
   const createQueue = async () => {
     if (!newQueueName.trim()) return alert("Enter queue name");
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch(`${API_BASE}/queues`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify({ name: newQueueName }),
       });
       const data = await res.json();
@@ -50,7 +100,13 @@ const QueueManagementApp = () => {
   const selectQueue = async (queue) => {
     setSelectedQueue(queue);
     try {
-      const res = await fetch(`${API_BASE}/queues/${queue._id}/tokens`);
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_BASE}/queues/${queue._id}/tokens`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
       const data = await res.json();
       setTokens(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -63,9 +119,13 @@ const QueueManagementApp = () => {
   const addToken = async () => {
     if (!newPersonName.trim()) return alert("Enter person name");
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch(`${API_BASE}/queues/${selectedQueue._id}/tokens`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify({ personName: newPersonName }),
       });
       const data = await res.json();
@@ -90,11 +150,15 @@ const QueueManagementApp = () => {
   // --- Move token up/down ---
   const moveToken = async (tokenId, direction) => {
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch(
         `${API_BASE}/queues/${selectedQueue._id}/tokens/${tokenId}/move`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify({ direction }),
         }
       );
@@ -117,7 +181,14 @@ const QueueManagementApp = () => {
   // --- Assign top token ---
   const assignToken = async () => {
     try {
-      const res = await fetch(`${API_BASE}/queues/${selectedQueue._id}/assign`, { method: "PUT" });
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_BASE}/queues/${selectedQueue._id}/assign`, { 
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
       const data = await res.json();
 
       if (Array.isArray(data)) {   
@@ -137,7 +208,14 @@ const QueueManagementApp = () => {
   // --- Cancel token ---
   const cancelToken = async (tokenId) => {
     try {
-      const res = await fetch(`${API_BASE}/queues/${selectedQueue._id}/tokens/${tokenId}`, { method: "DELETE" });
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_BASE}/queues/${selectedQueue._id}/tokens/${tokenId}`, { 
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
       const data = await res.json();
 
       if (Array.isArray(data)) {   
@@ -159,8 +237,13 @@ const QueueManagementApp = () => {
     if (!selectedQueue) return;
 
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch(`${API_BASE}/queues/${selectedQueue._id}/complete`, {
         method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
       });
       const data = await res.json();
 
@@ -184,6 +267,8 @@ const QueueManagementApp = () => {
   const handleLogin = (userData) => {
     setUser(userData);
     setIsLoggedIn(true);
+    // Store user data and token in localStorage
+    localStorage.setItem("user", JSON.stringify(userData));
     loadQueues();
   };
 
@@ -193,7 +278,22 @@ const QueueManagementApp = () => {
     setSelectedQueue(null);
     setQueues([]);
     setTokens([]);
+    // Clear localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
+
+  // Show loading screen while checking authentication
+  if (isLoading) {
+    return (
+      <div className="app-container">
+        <div className="loading-screen">
+          <div className="loading-spinner"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!isLoggedIn) return <Login onLogin={handleLogin} />;
 

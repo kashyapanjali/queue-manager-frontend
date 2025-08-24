@@ -1,92 +1,117 @@
 .token-management {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  
-  .token-form {
-    display: flex;
-    gap: 8px;
-  }
-  
-  .person-input {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  
-  .person-input:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 1px #2563eb;
-  }
-  
-  .add-person-button {
-    padding: 8px 12px;
-    background-color: #16a34a;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .add-person-button:hover {
-    background-color: #15803d;
-  }
-  
-  .assign-section {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .assign-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .assign-button:hover {
-    background-color: #1d4ed8;
-  }
-  
-  .token-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .token-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .queue-count {
-    font-size: 14px;
-    color: #6b7280;
-  }
-  
-  .complete-button{
-    background-color: #1d4ed8;
-    border-radius: 6px;
-    margin-left: 5px;
-    color: white;
-    padding: 12px 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap:8px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.token-form {
+  display: flex;
+  gap: 8px;
+}
+
+.person-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.person-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb;
+}
+
+.add-person-button {
+  padding: 8px 12px;
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-person-button:hover {
+  background-color: #15803d;
+}
+
+.assign-section {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.assign-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.assign-button:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.assign-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.complete-button {
+  background-color: #1d4ed8;
+  border-radius: 6px;
+  color: white;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.complete-button:hover:not(:disabled) {
+  background-color: #1e40af;
+}
+
+.complete-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.token-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.token-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.queue-count {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.button-icon {
+  width: 16px;
+  height: 16px;
+}
 

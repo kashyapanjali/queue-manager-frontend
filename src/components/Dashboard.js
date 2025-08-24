@@ -76,8 +76,9 @@ const Dashboard = ({ queues }) => {
         <AnalyticsCard icon="Clock" iconColor="blue" label="Avg Wait Time" value={`${analytics.avgWaitTime} min`} />
         <AnalyticsCard icon="Users" iconColor="green" label="Total Tokens" value={analytics.totalTokens} />
         <AnalyticsCard icon="TrendingUp" iconColor="orange" label="Tokens Waiting" value={analytics.tokensWaiting} />
+        <AnalyticsCard icon="Activity" iconColor="red" label="Tokens Serving" value={analytics.tokensServing} />
+        <AnalyticsCard icon="Check" iconColor="green" label="Tokens Completed" value={analytics.tokensCompleted} />
         <AnalyticsCard icon="BarChart3" iconColor="purple" label="Total Queues" value={analytics.totalQueues} />
-        <AnalyticsCard icon="Activity" iconColor="red" label="Tokens Served" value={analytics.tokensServing} />
       </div>
     </div>
   );

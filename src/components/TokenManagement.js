@@ -17,6 +17,9 @@ const TokenManagement = ({
 }) => {
   // Current token being served
   const currentServing = tokens.find(t => t.status === "serving");
+  
+  // Next token to be assigned (first waiting token)
+  const nextToken = tokens.find(t => t.status === "waiting");
 
   return (
     <div className="card">
@@ -46,9 +49,17 @@ const TokenManagement = ({
           {/* Assign & Complete Buttons at the top */}
           {tokens.length > 0 && (
             <div className="assign-section">
-              <button onClick={onAssignToken} className="assign-button">
+              <button 
+                onClick={onAssignToken} 
+                className="assign-button"
+                disabled={!nextToken || currentServing}
+              >
                 <Play className="button-icon" />
-                <span>Assign Next Token</span>
+                <span>
+                  {nextToken 
+                    ? `Assign Token #${nextToken.tokenNumber}` 
+                    : "No Tokens Waiting"}
+                </span>
               </button>
 
               <button 

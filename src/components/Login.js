@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/Login.css";
 
 const Login = ({ onLogin }) => {
@@ -6,19 +6,7 @@ const Login = ({ onLogin }) => {
     const [password, setPassword] = useState("");
     const [isSignup, setIsSignup] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Check if already logged in
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("loggedInUser");
-    if (loggedInUser) {
-      setIsAuthenticated(true);
-      // No navigate — just let parent switch UI
-      onLogin();
-    }
-  }, [onLogin]);
-
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -44,7 +32,10 @@ const Login = ({ onLogin }) => {
         if (!res.ok) throw new Error("Invalid credentials");
         const data = await res.json();
 
+        // Store token and user data in localStorage
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        
         onLogin(data.user);
       }
     } catch (err) {
@@ -58,10 +49,6 @@ const Login = ({ onLogin }) => {
     setUsername("");
     setPassword("");
   };
-
-  if (isAuthenticated) {
-    return <div>Redirecting...</div>;
-  }
 
   return (
     <div className="login-container">
