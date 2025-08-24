@@ -1,9 +1,9 @@
 import React from 'react';
-import { Clock, Users, TrendingUp, BarChart3 } from 'lucide-react';
+import { Clock, Users, TrendingUp, BarChart3, Activity } from 'lucide-react';
 import '../styles/AnalyticsCard.css';
 
 const AnalyticsCard = ({ icon, iconColor, label, value }) => {
-  const iconComponents = { Clock, Users, TrendingUp, BarChart3 };
+  const iconComponents = { Clock, Users, TrendingUp, BarChart3, Activity };
   const IconComponent = iconComponents[icon];
 
   return (

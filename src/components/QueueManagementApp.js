@@ -72,7 +72,12 @@ const QueueManagementApp = () => {
   
       if (Array.isArray(data)) {   
         setTokens(data);
-        setSelectedQueue((prev) => prev ? { ...prev, tokens: data } : prev);
+        setSelectedQueue(prev => prev ? { ...prev, tokens: data } : prev);
+        setQueues(prevQueues =>
+          prevQueues.map(q =>
+            q._id === selectedQueue._id ? { ...q, tokens: data } : q
+          )
+        );
       }
   
       setNewPersonName("");
@@ -96,7 +101,12 @@ const QueueManagementApp = () => {
       const data = await res.json();
       if (Array.isArray(data)) {   // backend returns an array
         setTokens(data);
-        setSelectedQueue((prev) => prev ? { ...prev, tokens: data } : prev);
+        setSelectedQueue(prev => prev ? { ...prev, tokens: data } : prev);
+        setQueues(prevQueues =>
+          prevQueues.map(q =>
+            q._id === selectedQueue._id ? { ...q, tokens: data } : q
+          )
+        );
       }
     } catch (err) {
       console.error("Error moving token:", err);
@@ -112,7 +122,12 @@ const QueueManagementApp = () => {
 
       if (Array.isArray(data)) {   
         setTokens(data);
-        setSelectedQueue((prev) => prev ? { ...prev, tokens: data } : prev);
+        setSelectedQueue(prev => prev ? { ...prev, tokens: data } : prev);
+        setQueues(prevQueues =>
+          prevQueues.map(q =>
+            q._id === selectedQueue._id ? { ...q, tokens: data } : q
+          )
+        );
       }
     } catch (err) {
       console.error("Error assigning token:", err);
@@ -127,10 +142,41 @@ const QueueManagementApp = () => {
 
       if (Array.isArray(data)) {   
         setTokens(data);
-        setSelectedQueue((prev) => prev ? { ...prev, tokens: data } : prev);
+        setSelectedQueue(prev => prev ? { ...prev, tokens: data } : prev);
+        setQueues(prevQueues =>
+          prevQueues.map(q =>
+            q._id === selectedQueue._id ? { ...q, tokens: data } : q
+          )
+        );
       }
     } catch (err) {
       console.error("Error cancelling token:", err);
+    }
+  };
+
+  //complete the token--served
+  const completeToken = async () => {
+    if (!selectedQueue) return;
+
+    try {
+      const res = await fetch(`${API_BASE}/queues/${selectedQueue._id}/complete`, {
+        method: "PUT",
+      });
+      const data = await res.json();
+
+      if (Array.isArray(data)) {
+        setTokens(data);
+        setSelectedQueue(prev => prev ? { ...prev, tokens: data } : prev);
+
+        // Update queues state to refresh analytics
+        setQueues(prevQueues =>
+          prevQueues.map(q =>
+            q._id === selectedQueue._id ? { ...q, tokens: data } : q
+          )
+        );
+      }
+    } catch (err) {
+      console.error("Error completing token:", err);
     }
   };
 
@@ -156,10 +202,10 @@ const QueueManagementApp = () => {
       <Header activeView={activeView} setActiveView={setActiveView} onLogout={handleLogout} />
 
       <div className="main-content">
-        {activeView === "dashboard" ? (
-          <Dashboard analytics={{}} selectedQueue={selectedQueue} />
-        ) : (
-          <div className="grid-layout">
+          {activeView === "dashboard" ? (
+            <Dashboard queues={queues} selectedQueue={selectedQueue} />
+          ) : (
+            <div className="grid-layout">
             <QueueList
               queues={queues}
               selectedQueue={selectedQueue}
@@ -171,7 +217,7 @@ const QueueManagementApp = () => {
             {selectedQueue ? (
               <TokenManagement
                 selectedQueue={selectedQueue}
-                tokens={Array.isArray(tokens) ? tokens : []} // ✅ safe mapping
+                tokens={Array.isArray(tokens) ? tokens : []} // safe mapping
                 newPersonName={newPersonName}
                 setNewPersonName={setNewPersonName}
                 onAddToken={addToken}
@@ -179,6 +225,7 @@ const QueueManagementApp = () => {
                 onMoveDown={(id) => moveToken(id, "down")}
                 onAssignToken={assignToken}
                 onCancelToken={cancelToken}
+                onCompleteToken={completeToken}
               />
             ) : (
               <EmptyState />

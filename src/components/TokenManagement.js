@@ -1,6 +1,6 @@
 import React from 'react';
 import TokenItem from './TokenItem';
-import { Plus, Play } from 'lucide-react';
+import { Plus, Play, Check } from 'lucide-react';
 import '../styles/TokenManagement.css';
 
 const TokenManagement = ({ 
@@ -12,19 +12,24 @@ const TokenManagement = ({
   onMoveUp, 
   onMoveDown, 
   onAssignToken, 
-  onCancelToken 
+  onCancelToken,
+  onCompleteToken
 }) => {
+  // Current token being served
+  const currentServing = tokens.find(t => t.status === "serving");
+
   return (
     <div className="card">
       <div className="card-header">
         <div className="token-header">
           <h2 className="card-title">{selectedQueue.name} - Token Management</h2>
-          <div className="queue-count">{tokens.length} people waiting</div>
+          <div className="queue-count">{tokens.length} people in queue</div>
         </div>
       </div>
       
       <div className="card-content">
         <div className="token-management">
+          {/* Add Token */}
           <div className="token-form">
             <input
               type="text"
@@ -38,15 +43,30 @@ const TokenManagement = ({
             </button>
           </div>
 
+          {/* Assign & Complete Buttons at the top */}
           {tokens.length > 0 && (
             <div className="assign-section">
               <button onClick={onAssignToken} className="assign-button">
                 <Play className="button-icon" />
                 <span>Assign Next Token</span>
               </button>
+
+              <button 
+                onClick={onCompleteToken} 
+                className="complete-button" 
+                disabled={!currentServing}
+              >
+                <Check className="button-icon" />
+                <span>
+                  {currentServing 
+                    ? `Complete Token #${currentServing.tokenNumber}` 
+                    : "No Token Serving"}
+                </span>
+              </button>
             </div>
           )}
 
+          {/* Token List */}
           <div className="token-list">
             {tokens.map((token, index) => (
               <TokenItem
