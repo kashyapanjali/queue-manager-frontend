@@ -13,7 +13,7 @@ const Login = ({ onLogin }) => {
 
     try {
       if (isSignup) {
-        const res = await fetch("http://localhost:5000/api/auth/signup", {
+        const res = await fetch("https://queue-manager-6ex4.onrender.com/api/auth/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password })
@@ -23,7 +23,7 @@ const Login = ({ onLogin }) => {
         alert("Account created successfully! Please login.");
         setIsSignup(false);
       } else {
-        const res = await fetch("http://localhost:5000/api/auth/login", {
+        const res = await fetch("https://queue-manager-6ex4.onrender.com/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password })

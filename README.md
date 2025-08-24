@@ -57,7 +57,6 @@ The app will run at **[http://localhost:3000](http://localhost:3000)**
 ```
 src/
 │── components/       # Reusable UI components (Login, Dashboard, QueueList, etc.)
-│── context/          # AuthContext & QueueContext
 │── styles/           # CSS files
 │── App.js            # Main app router
 │── index.js          # Entry point

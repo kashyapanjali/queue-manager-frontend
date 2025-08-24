@@ -6,7 +6,7 @@ import TokenManagement from "./TokenManagement";
 import EmptyState from "./EmptyState";
 import Dashboard from "./Dashboard";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://queue-manager-6ex4.onrender.com/api";
 
 const QueueManagementApp = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
