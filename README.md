@@ -62,6 +62,14 @@ src/
 │── index.js          # Entry point
 ```
 
+
+```
+---
+## Hosting
+** database :- MongoDB Atlas
+** backend :- Render
+** frontend :- Netlify (https://queue-service.netlify.app/)
+
 ---
 
 ## Available Scripts
