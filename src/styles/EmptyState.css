@@ -1,0 +1,30 @@
+.empty-state {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 48px 24px;
+  }
+  
+  .empty-state-content {
+    text-align: center;
+    color: #6b7280;
+  }
+  
+  .empty-state-icon {
+    height: 48px;
+    width: 48px;
+    color: #d1d5db;
+    margin: 0 auto 16px auto;
+  }
+  
+  .empty-state-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #111827;
+    margin-bottom: 8px;
+  }
+  
+  .empty-state-text {
+    margin: 0;
+  }
+  

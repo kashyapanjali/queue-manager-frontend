@@ -1,12 +1,9 @@
-import logo from './logo.svg';
+import React from 'react';
+import QueueManagementApp from './components/QueueManagementApp';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-     
-    </div>
-  );
+  return <QueueManagementApp />;
 }
 
 export default App;

@@ -1,0 +1,56 @@
+.analytics-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+  }
+  
+  .analytics-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .analytics-icon-container {
+    flex-shrink: 0;
+    margin-right: 16px;
+  }
+  
+  .analytics-icon {
+    height: 32px;
+    width: 32px;
+  }
+  
+  .analytics-icon.blue {
+    color: #2563eb;
+  }
+  
+  .analytics-icon.green {
+    color: #16a34a;
+  }
+  
+  .analytics-icon.orange {
+    color: #ea580c;
+  }
+  
+  .analytics-icon.purple {
+    color: #9333ea;
+  }
+  
+  .analytics-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .analytics-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+  
+  .analytics-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+  }
+  

@@ -1,0 +1,95 @@
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.card-content {
+  padding: 24px;
+}
+
+.queue-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.queue-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.queue-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb;
+}
+
+.add-button {
+  padding: 8px 12px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-button:hover {
+  background-color: #1d4ed8;
+}
+
+.button-icon {
+  height: 16px;
+  width: 16px;
+}
+
+.queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.queue-item {
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s;
+}
+
+.queue-item:hover {
+  background-color: #f8fafc;
+}
+
+.queue-item-selected {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+}
+
+.queue-name {
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.queue-date {
+  font-size: 14px;
+  color: #6b7280;
+}
