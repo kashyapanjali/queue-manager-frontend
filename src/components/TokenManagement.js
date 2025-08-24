@@ -50,7 +50,7 @@ const TokenManagement = ({
           <div className="token-list">
             {tokens.map((token, index) => (
               <TokenItem
-                key={token.id}
+                key={token._id}
                 token={token}
                 index={index}
                 onMoveUp={onMoveUp}

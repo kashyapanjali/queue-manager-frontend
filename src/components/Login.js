@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../styles/Login.css";
 
 const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isSignup, setIsSignup] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [isSignup, setIsSignup] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Check if already logged in
   useEffect(() => {
@@ -18,30 +18,39 @@ const Login = ({ onLogin }) => {
     }
   }, [onLogin]);
 
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    setTimeout(() => {
+    try {
       if (isSignup) {
-        // Save credentials
-        const users = JSON.parse(localStorage.getItem("users")) || {};
-        if (users[username]) {
-          alert("Username already exists. Please try another one.");
-        } else {
-          users[username] = password;
-          localStorage.setItem("users", JSON.stringify(users));
-          alert("Account created successfully! Please login.");
-          setIsSignup(false);
-          setUsername("");
-          setPassword("");
-        }
+        const res = await fetch("http://localhost:5000/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        if (!res.ok) throw new Error("Signup failed");
+        alert("Account created successfully! Please login.");
+        setIsSignup(false);
       } else {
-        // Delegate login check to parent
-        onLogin(username, password);
+        const res = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        if (!res.ok) throw new Error("Invalid credentials");
+        const data = await res.json();
+
+        localStorage.setItem("token", data.token);
+        onLogin(data.user);
       }
-      setIsLoading(false);
-    }, 800);
+    } catch (err) {
+      alert(err.message);
+    }
+    setIsLoading(false);
   };
 
   const toggleMode = () => {
@@ -121,14 +130,6 @@ const Login = ({ onLogin }) => {
                   >
                     {isSignup ? "Sign In" : "Sign Up"}
                   </button>
-                </p>
-              </div>
-
-              <div className="demo-credentials">
-                <p className="demo-text">Demo credentials (built-in):</p>
-                <p className="demo-info">Username: admin | Password: admin</p>
-                <p className="demo-note">
-                  If not found, sign up with these to create.
                 </p>
               </div>
             </form>

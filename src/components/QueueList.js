@@ -31,7 +31,7 @@ const QueueList = ({
         <div className="queue-list">
           {queues.map((queue) => (
             <div
-              key={queue.id}
+              key={queue._id}
               onClick={() => onSelectQueue(queue)}
               className={`queue-item ${selectedQueue?.id === queue.id ? 'queue-item-selected' : ''}`}
             >
