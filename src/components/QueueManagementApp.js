@@ -10,7 +10,6 @@ const API_BASE = "http://localhost:5000/api";
 
 const QueueManagementApp = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
   const [queues, setQueues] = useState([]);
   const [selectedQueue, setSelectedQueue] = useState(null);
   const [tokens, setTokens] = useState([]);
@@ -37,8 +36,6 @@ const QueueManagementApp = () => {
           });
           
           if (res.ok) {
-            const user = JSON.parse(userData);
-            setUser(user);
             setIsLoggedIn(true);
             await loadQueues();
           } else {
@@ -264,17 +261,13 @@ const QueueManagementApp = () => {
   };
 
   // --- Login handler ---
-  const handleLogin = (userData) => {
-    setUser(userData);
+  const handleLogin = () => {
     setIsLoggedIn(true);
-    // Store user data and token in localStorage
-    localStorage.setItem("user", JSON.stringify(userData));
     loadQueues();
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    setUser(null);
     setSelectedQueue(null);
     setQueues([]);
     setTokens([]);
