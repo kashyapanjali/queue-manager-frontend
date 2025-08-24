@@ -46,7 +46,7 @@ const TokenManagement = ({
             </button>
           </div>
 
-          {/* Assign & Complete Buttons at the top */}
+          {/* Assign & Complete Buttons */}
           {tokens.length > 0 && (
             <div className="assign-section">
               <button 
@@ -77,19 +77,21 @@ const TokenManagement = ({
             </div>
           )}
 
-          {/* Token List */}
-          <div className="token-list">
-            {tokens.map((token, index) => (
-              <TokenItem
-                key={token._id}
-                token={token}
-                index={index}
-                onMoveUp={onMoveUp}
-                onMoveDown={onMoveDown}
-                onCancel={onCancelToken}
-                totalTokens={tokens.length}
-              />
-            ))}
+          {/* Token List Container */}
+          <div className="token-list-container">
+            <div className="token-list">
+              {tokens.map((token, index) => (
+                <TokenItem
+                  key={token._id}
+                  token={token}
+                  index={index}
+                  onMoveUp={onMoveUp}
+                  onMoveDown={onMoveDown}
+                  onCancel={onCancelToken}
+                  totalTokens={tokens.length}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

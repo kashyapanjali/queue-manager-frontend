@@ -19,6 +19,15 @@
   padding: 24px;
 }
 
+.queue-management {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
 .queue-form {
   display: flex;
   gap: 8px;
@@ -54,11 +63,6 @@
   background-color: #1d4ed8;
 }
 
-.button-icon {
-  height: 16px;
-  width: 16px;
-}
-
 .queue-list {
   display: flex;
   flex-direction: column;
@@ -91,4 +95,178 @@
 .queue-date {
   font-size: 14px;
   color: #6b7280;
+}
+
+.button-icon {
+  height: 16px;
+  width: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .queue-management {
+    gap: 16px;
+  }
+  
+  .queue-input {
+    padding: 10px 14px;
+  }
+  
+  .add-button {
+    padding: 10px 14px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  
+  .queue-list {
+    gap: 6px;
+  }
+  
+  .queue-item {
+    padding: 14px;
+  }
+  
+  .queue-name {
+    font-size: 0.95rem;
+  }
+  
+  .queue-date {
+    font-size: 13px;
+  }
+  
+  .button-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .queue-management {
+    gap: 12px;
+    max-height: calc(100vh - 120px);
+  }
+  
+  .queue-form {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .queue-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .add-button {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px;
+    min-height: 44px;
+  }
+  
+  .queue-list-container {
+    max-height: calc(100vh - 200px);
+  }
+  
+  .queue-list {
+    gap: 6px;
+  }
+  
+  .queue-item {
+    padding: 12px;
+  }
+  
+  .queue-name {
+    font-size: 0.9rem;
+  }
+  
+  .queue-date {
+    font-size: 12px;
+  }
+  
+  .button-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .queue-management {
+    gap: 10px;
+    max-height: calc(100vh - 100px);
+  }
+  
+  .queue-form {
+    gap: 8px;
+  }
+  
+  .queue-input {
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+  
+  .add-button {
+    padding: 8px 10px;
+    font-size: 14px;
+    min-height: 40px;
+  }
+  
+  .queue-list-container {
+    max-height: calc(100vh - 180px);
+  }
+  
+  .queue-list {
+    gap: 4px;
+  }
+  
+  .queue-item {
+    padding: 10px;
+  }
+  
+  .queue-name {
+    font-size: 0.85rem;
+  }
+  
+  .queue-date {
+    font-size: 11px;
+  }
+  
+  .button-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+  .queue-management {
+    gap: 10px;
+    max-height: calc(100vh - 80px);
+  }
+  
+  .queue-list-container {
+    max-height: calc(100vh - 160px);
+  }
+  
+  .add-button {
+    padding: 6px 10px;
+    font-size: 13px;
+    min-height: 36px;
+  }
+  
+  .queue-input {
+    padding: 6px 10px;
+  }
+  
+  .queue-item {
+    padding: 8px;
+  }
+  
+  .queue-name {
+    font-size: 0.85rem;
+  }
+  
+  .queue-date {
+    font-size: 11px;
+  }
 }

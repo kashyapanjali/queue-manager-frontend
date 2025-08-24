@@ -2,116 +2,386 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  height: 100%;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 .token-form {
   display: flex;
   gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .person-input {
   flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  background: white;
+  box-sizing: border-box;
 }
 
 .person-input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 1px #2563eb;
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.person-input:disabled {
+  background: #f9fafb;
+  cursor: not-allowed;
 }
 
 .add-person-button {
-  padding: 8px 12px;
-  background-color: #16a34a;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.add-person-button:hover {
-  background-color: #15803d;
+.add-person-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.add-person-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .assign-section {
   display: flex;
   justify-content: center;
   gap: 12px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .assign-button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 12px 24px;
-  background-color: #2563eb;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  min-height: 48px;
+  white-space: nowrap;
 }
 
 .assign-button:hover:not(:disabled) {
-  background-color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .assign-button:disabled {
-  background-color: #9ca3af;
+  background: #9ca3af;
   cursor: not-allowed;
   opacity: 0.6;
+  transform: none;
 }
 
 .complete-button {
-  background-color: #1d4ed8;
-  border-radius: 6px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
   color: white;
-  padding: 12px 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
   border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
 }
 
 .complete-button:hover:not(:disabled) {
-  background-color: #1e40af;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
 }
 
 .complete-button:disabled {
-  background-color: #9ca3af;
+  background: #9ca3af;
   cursor: not-allowed;
   opacity: 0.6;
+  transform: none;
+}
+
+.token-list-container {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .token-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f1f1f1;
+  flex: 1;
+  min-height: 0;
+}
+
+.token-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.token-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.token-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.token-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
 
 .token-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 8px;
 }
 
 .queue-count {
   font-size: 14px;
   color: #6b7280;
+  font-weight: 500;
+  padding: 4px 12px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 20px;
+  color: #667eea;
 }
 
 .button-icon {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .token-management {
+    gap: 20px;
+  }
+  
+  .assign-section {
+    gap: 10px;
+  }
+  
+  .assign-button,
+  .complete-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  
+  .person-input {
+    padding: 10px 14px;
+  }
+  
+  .add-person-button {
+    padding: 10px 14px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  
+  .token-list {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .token-management {
+    gap: 16px;
+    max-height: calc(100vh - 120px);
+  }
+  
+  .token-form {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .person-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .add-person-button {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px;
+    min-height: 44px;
+  }
+  
+  .assign-section {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .assign-button,
+  .complete-button {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  
+  .token-list-container {
+    max-height: calc(100vh - 300px);
+  }
+  
+  .token-list {
+    max-height: none;
+    gap: 6px;
+  }
+  
+  .token-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 0;
+  }
+  
+  .queue-count {
+    font-size: 12px;
+    padding: 3px 10px;
+  }
+  
+  .button-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .token-management {
+    gap: 12px;
+    max-height: calc(100vh - 100px);
+  }
+  
+  .token-form {
+    gap: 8px;
+  }
+  
+  .person-input {
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+  
+  .add-person-button {
+    padding: 8px 10px;
+    font-size: 14px;
+    min-height: 40px;
+  }
+  
+  .assign-section {
+    gap: 6px;
+  }
+  
+  .assign-button,
+  .complete-button {
+    padding: 8px 12px;
+    font-size: 13px;
+    min-height: 40px;
+  }
+  
+  .token-list-container {
+    max-height: calc(100vh - 250px);
+  }
+  
+  .token-list {
+    gap: 4px;
+  }
+  
+  .token-header {
+    gap: 6px;
+    padding: 6px 0;
+  }
+  
+  .queue-count {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+  
+  .button-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+  .token-management {
+    gap: 12px;
+    max-height: calc(100vh - 80px);
+  }
+  
+  .token-list-container {
+    max-height: calc(100vh - 200px);
+  }
+  
+  .assign-button,
+  .complete-button {
+    padding: 6px 12px;
+    font-size: 13px;
+    min-height: 36px;
+  }
+  
+  .person-input {
+    padding: 6px 10px;
+  }
+  
+  .add-person-button {
+    padding: 6px 10px;
+    font-size: 13px;
+    min-height: 36px;
+  }
+  
+  .token-header {
+    padding: 4px 0;
+  }
 }
 
